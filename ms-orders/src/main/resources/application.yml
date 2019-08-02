@@ -1,0 +1,27 @@
+
+#Server
+server:
+  port: 8080
+  servlet:
+    context-path: /ms-orders/v1
+
+# Database
+spring:
+  jpa:
+    database: postgresql
+    properties:
+      hibernate:
+        ddl-auto: create
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ms_orders}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
