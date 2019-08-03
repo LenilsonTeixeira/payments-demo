@@ -8,17 +8,13 @@ server:
 # Database
 spring:
   jpa:
-    database: postgresql
-    properties:
-      hibernate:
-        ddl-auto: create
-        temp:
-          use_jdbc_metadata_defaults: false
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: mysql
+    hibernate:
+      ddl-auto: create
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ms_orders}
-    username: ${SPRING_DATASOURCE_USERNAME:admin}
-    password: ${SPRING_DATASOURCE_PASSWORD:admin}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/ms_orders}
+    username: ${SPRING_DATASOURCE_USERNAME:developer}
+    password: ${SPRING_DATASOURCE_PASSWORD:developer}
 
 management:
   endpoints:
