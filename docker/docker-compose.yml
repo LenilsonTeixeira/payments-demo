@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mysql:
+     networks:
+       - ms-network
+     image: mysql:5.7
+     container_name: mysql
+     ports: 
+       - "3306:3306"    
+     environment:
+       MYSQL_ROOT_PASSWORD: manager
+       MYSQL_DATABASE: ms_orders
+       MYSQL_USER: developer
+       MYSQL_PASSWORD: developer
+     volumes:
+       - ./mysql-data:/var/lib/mysql
+
+  ms-orders:
+     networks:
+       - ms-network
+     image: ms-orders
+     container_name: ms-orders
+     ports:
+       - "8080:8080"
+       - "8000:8000"
+     environment:
+       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/ms_orders"
+       SPRING_DATASOURCE_USERNAME: developer
+       SPRING_DATASOURCE_PASSWORD: developer
+       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Xmx256m"
+     depends_on:
+       - mysql
+networks: 
+    ms-network:
+        driver: bridge
