@@ -1,6 +1,8 @@
 package com.lteixeira.apicustomers.service.impl;
 
 import com.lteixeira.apicustomers.dto.CustomerDTO;
+import com.lteixeira.apicustomers.event.enumeration.CustomerPublishActionEnum;
+import com.lteixeira.apicustomers.event.service.CustomerPublisherService;
 import com.lteixeira.apicustomers.exception.CustomerException;
 import com.lteixeira.apicustomers.exception.NotFoundException;
 import com.lteixeira.apicustomers.mapper.CustomerMapper;
@@ -21,13 +23,22 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Autowired
+    private CustomerPublisherService customerPublisherService;
+
+    @Autowired
     private CustomerMapper customerMapper;
 
     @Override
     public CustomerDTO save(CustomerDTO customerDTO) {
         try {
             Customer customer = customerMapper.convertToModel(customerDTO);
-            return customerMapper.convertToDTO(this.customerRepository.save(customer));
+
+            final CustomerDTO customerDb =  customerMapper.convertToDTO(this.customerRepository.save(customer));
+
+            customerPublisherService.accept(customerMapper.convertToModel(customerDb), CustomerPublishActionEnum.CREATE);
+
+            return customerDb;
+
         }catch (Exception e){
             throw new CustomerException("Erro ao salvar cliente");
         }
@@ -43,13 +54,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void update(Integer id, CustomerDTO customerDTO) {
         this.findById(id);
-        customerRepository.save(customerMapper.convertToModel(customerDTO));
+
+        final Customer customer = customerRepository.save(customerMapper.convertToModel(customerDTO));
+
+        customerPublisherService.accept(customer,CustomerPublishActionEnum.UPDATE);
     }
 
     @Override
     public void deleteById(Integer id) {
         this.findById(id);
+
         customerRepository.deleteById(id);
+
+        customerPublisherService.accept(Customer.builder().id(id).build(),CustomerPublishActionEnum.DELETE);
     }
 
     @Override
