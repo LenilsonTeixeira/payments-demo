@@ -1,4 +1,4 @@
-package com.lteixeira.apicustomers.util;
+package com.lteixeira.apicustomers.event.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,5 +1,6 @@
 package com.lteixeira.apiproducts.handler;
 
+import com.lteixeira.apiproducts.exception.JsonParseException;
 import com.lteixeira.apiproducts.exception.NotFoundException;
 import com.lteixeira.apiproducts.exception.ProductException;
 import com.lteixeira.apiproducts.model.ErrorDetail;
@@ -26,6 +27,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDetail(404, e.getMessage(), Instant.now().toEpochMilli(), request.getRequestURI()));
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<ErrorDetail> handleJsonParseException(JsonParseException e, final HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorDetail(500, e.getMessage(), Instant.now().toEpochMilli(), request.getRequestURI()));
     }
 
     @ExceptionHandler(ProductException.class)

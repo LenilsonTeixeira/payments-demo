@@ -1,6 +1,8 @@
 package com.lteixeira.apiproducts.service.impl;
 
 import com.lteixeira.apiproducts.dto.ProductDTO;
+import com.lteixeira.apiproducts.event.enumeration.ProductPublishActionEnum;
+import com.lteixeira.apiproducts.event.service.ProductPublisherService;
 import com.lteixeira.apiproducts.exception.NotFoundException;
 import com.lteixeira.apiproducts.exception.ProductException;
 import com.lteixeira.apiproducts.mapper.ProductMapper;
@@ -21,13 +23,21 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Autowired
+    private ProductPublisherService productPublisherService;
+
+    @Autowired
     private ProductMapper productMapper;
 
     @Override
     public void save(ProductDTO productDTO) {
         try {
+
             Product product = productMapper.convertToModel(productDTO);
+
             this.productRepository.save(product);
+
+            productPublisherService.accept(product, ProductPublishActionEnum.CREATE);
+
         }catch (Exception e){
             throw new ProductException("Erro ao salvar produto");
         }
@@ -43,13 +53,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(String id, ProductDTO productDTO) {
         this.findById(id);
-        productRepository.save(productMapper.convertToModel(productDTO));
+
+        final Product product = productRepository.save(productMapper.convertToModel(productDTO));
+
+        productPublisherService.accept(product, ProductPublishActionEnum.UPDATE);
     }
 
     @Override
     public void deleteById(String id) {
-        this.findById(id);
+        Optional<ProductDTO> productDb = this.findById(id);
+
         productRepository.deleteById(id);
+
+        if(productDb.isPresent()){
+            productPublisherService.accept(Product.builder().code(productDb.get().getCode()).build(),ProductPublishActionEnum.DELETE);
+        }
+
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.lteixeira.apicustomers.event.model.CustomerEventPublisher;
 import com.lteixeira.apicustomers.event.service.CustomerPublisherService;
 import com.lteixeira.apicustomers.model.Customer;
 import com.lteixeira.apicustomers.util.JsonUtils;
-import com.lteixeira.apicustomers.util.Message;
+import com.lteixeira.apicustomers.event.model.Message;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

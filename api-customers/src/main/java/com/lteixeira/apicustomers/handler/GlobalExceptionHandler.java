@@ -1,6 +1,7 @@
 package com.lteixeira.apicustomers.handler;
 
 import com.lteixeira.apicustomers.exception.CustomerException;
+import com.lteixeira.apicustomers.exception.JsonParseException;
 import com.lteixeira.apicustomers.exception.NotFoundException;
 import com.lteixeira.apicustomers.model.ErrorDetail;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorDetail(404, e.getMessage(), Instant.now().toEpochMilli(), request.getRequestURI()));
+    }
+
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<ErrorDetail> handleJsonParseException(JsonParseException e, final HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ErrorDetail(500, e.getMessage(), Instant.now().toEpochMilli(), request.getRequestURI()));
     }
 
     @ExceptionHandler(CustomerException.class)

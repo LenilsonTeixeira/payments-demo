@@ -1,6 +1,6 @@
-package com.lteixeira.apicustomers.configuration;
+package com.lteixeira.apiproducts.configuration;
 
-import com.lteixeira.apicustomers.event.model.Message;
+import com.lteixeira.apiproducts.event.model.Message;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;

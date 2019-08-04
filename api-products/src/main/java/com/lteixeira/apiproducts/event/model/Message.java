@@ -1,4 +1,4 @@
-package com.lteixeira.apiproducts.util;
+package com.lteixeira.apiproducts.event.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -43,3 +43,4 @@ public class Message {
         return "Message [headers=" + this.headers + ", payload=" + this.payload + "]";
     }
 }
+
