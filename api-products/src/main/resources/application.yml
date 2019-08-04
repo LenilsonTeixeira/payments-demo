@@ -1,0 +1,18 @@
+server:
+  port: 8081
+  .servlet:
+    context-path: /api-products/v1
+
+# Database
+spring:
+  data:
+    mongodb:
+      database: ${SPRING_DATA_MONGODB_API_PRODUCTS_DATABASE:api_products}
+      port: ${SPRING_DATA_API_PRODUCTS_PORT:27017}
+      host: ${SPRING_DATA_API_PRODUCTS_HOST:mongodb}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus

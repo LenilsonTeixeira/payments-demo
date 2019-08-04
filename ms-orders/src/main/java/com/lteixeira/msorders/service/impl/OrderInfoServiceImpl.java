@@ -29,13 +29,12 @@ public class OrderInfoServiceImpl implements OrderInfoService {
                 .collect(Collectors.toList());
     }
 
-    public void save(OrderInfoDTO orderInfoDTO) throws IllegalAccessException {
-        Optional<OrderInfo> order = Optional.ofNullable(orderInfoMapper.convertToModel(orderInfoDTO));
-        if(order.isPresent()){
+    public void save(OrderInfoDTO orderInfoDTO){
+        try {
+            Optional<OrderInfo> order = Optional.ofNullable(orderInfoMapper.convertToModel(orderInfoDTO));
             this.orderInfoRepository.save(order.get());
+        }catch(Exception e){
+            throw new OrderInfoException("Error in saving order");
         }
-
-        throw new OrderInfoException("Error in saving order");
-
     }
 }

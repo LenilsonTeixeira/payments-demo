@@ -12,8 +12,14 @@ services:
        MYSQL_DATABASE: ms_orders
        MYSQL_USER: developer
        MYSQL_PASSWORD: developer
-     volumes:
-       - ./mysql-data:/var/lib/mysql
+
+  mongodb:
+     image: mongo
+     networks:
+       - ms-network
+     ports:
+       - "27017:27017"
+     container_name: mongodb
 
   ms-orders:
      networks:
@@ -27,9 +33,26 @@ services:
        SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/ms_orders"
        SPRING_DATASOURCE_USERNAME: developer
        SPRING_DATASOURCE_PASSWORD: developer
-       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Xmx256m"
+       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Xmx128m"
      depends_on:
        - mysql
+     restart: always
+
+  api-products:
+     networks:
+       - ms-network
+     image: api-products
+     container_name: api-products
+     ports:
+       - "8081:8081"
+       - "8001:8001"
+     environment:
+       SPRING_DATA_MONGODB_API_PRODUCTS_DATABASE: api_products
+       SPRING_DATA_API_PRODUCTS_HOST: mongodb
+       SPRING_DATA_API_PRODUCTS_PORT: 27017 
+       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8001 -Xmx256m"
+     depends_on:
+       - mongodb
 networks: 
     ms-network:
         driver: bridge
