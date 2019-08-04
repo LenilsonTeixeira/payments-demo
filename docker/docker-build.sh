@@ -8,3 +8,7 @@ mvn -f ../ms-orders/pom.xml package dockerfile:build -DskipTests
 
 printf "\n> Building image: API-Products \n"
 mvn -f ../api-products/pom.xml package dockerfile:build -DskipTests
+
+
+printf "\n> Building image: API-Customers \n"
+mvn -f ../api-customers/pom.xml package dockerfile:build -DskipTests

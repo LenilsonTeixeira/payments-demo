@@ -23,10 +23,6 @@ public class ProductDTO {
     @Size(max = 300, message = "O nome do produto deve ter menos que 300 caracteres")
     private String name;
 
-    @NotNull(message = "Quantidade é obrigatória")
-    @Min(value = 0, message = "A quantidade deve ser maior que 0")
-    private Integer quantity;
-
     @NotNull(message = "Preço é obrigatório")
     @DecimalMin(value = "0.00", message = "O valor do produto deve ser maior que R$0,00")
     private BigDecimal price;

@@ -21,6 +21,35 @@ services:
        - "27017:27017"
      container_name: mongodb
 
+  postgresql:
+    container_name: postgres
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: api_customers
+    ports:
+      - "5432:5432"
+    networks:
+      - ms-network
+    restart: unless-stopped
+
+  api-products:
+     networks:
+       - ms-network
+     image: api-products
+     container_name: api-products
+     ports:
+       - "8081:8081"
+       - "8001:8001"
+     environment:
+       SPRING_DATA_MONGODB_API_PRODUCTS_DATABASE: api_products
+       SPRING_DATA_API_PRODUCTS_HOST: mongodb
+       SPRING_DATA_API_PRODUCTS_PORT: 27017 
+       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8001 -Xmx128m"
+     depends_on:
+       - mongodb
+
   ms-orders:
      networks:
        - ms-network
@@ -38,21 +67,33 @@ services:
        - mysql
      restart: always
 
-  api-products:
+  api-customers:
      networks:
        - ms-network
-     image: api-products
-     container_name: api-products
+     image: api-customers
+     container_name: api-customers
      ports:
-       - "8081:8081"
-       - "8001:8001"
+       - "8082:8082"
+       - "8002:8002"
      environment:
-       SPRING_DATA_MONGODB_API_PRODUCTS_DATABASE: api_products
-       SPRING_DATA_API_PRODUCTS_HOST: mongodb
-       SPRING_DATA_API_PRODUCTS_PORT: 27017 
-       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8001 -Xmx256m"
+       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/api_customers"
+       SPRING_DATASOURCE_USERNAME: admin
+       SPRING_DATASOURCE_PASSWORD: admin
+       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8002 -Xmx128m"
      depends_on:
-       - mongodb
+       - postgresql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "administrator@sys.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "15432:80"
+    depends_on:
+      - postgresql
+    networks:
+      - ms-network
 networks: 
     ms-network:
         driver: bridge

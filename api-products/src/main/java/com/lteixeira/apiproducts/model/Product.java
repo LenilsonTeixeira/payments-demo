@@ -23,8 +23,6 @@ public class Product {
 
     private String name;
 
-    private Integer quantity;
-
     private BigDecimal price;
 
 }

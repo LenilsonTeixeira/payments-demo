@@ -22,18 +22,18 @@ public class OrderInfoDTO implements Serializable {
 
     private Long id;
 
-    @NotBlank(message = "{order.product.code.required}")
+    @NotBlank(message = "Código do produto é obrigatório")
     private Long productCode;
 
-    @NotBlank(message = "{order.product.name.required}")
+    @NotBlank(message = "Nome do produto é obrigatório")
     private String productName;
 
-    @NotBlank(message = "{order.customer.id.required}")
+    @NotBlank(message = "ID do cliente é obrigatório")
     private Long customerId;
 
-    @NotEmpty(message = "{order.amount.required}")
+    @NotEmpty(message = "Valor total é obrigatório")
     private BigDecimal amount;
 
-    @NotNull(message = "{order.status.required}")
+    @NotNull(message = "Status da remessa é obrigatório")
     private OrderStatus status;
 }

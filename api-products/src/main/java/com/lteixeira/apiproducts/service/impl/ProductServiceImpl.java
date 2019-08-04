@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
             Product product = productMapper.convertToModel(productDTO);
             this.productRepository.save(product);
         }catch (Exception e){
-            throw new ProductException("Error in saving product");
+            throw new ProductException("Erro ao salvar produto");
         }
     }
 
@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.findById(id)
                     .map(productMapper::convertToDTO);
         }else{
-            throw new NotFoundException("Product not found");
+            throw new NotFoundException("Produto não encontrado");
         }
     }
 
