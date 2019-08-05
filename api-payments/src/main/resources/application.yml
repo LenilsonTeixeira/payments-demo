@@ -18,3 +18,9 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/api_payments}
     username: ${SPRING_DATASOURCE_USERNAME:admin}
     password: ${SPRING_DATASOURCE_PASSWORD:admin}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus

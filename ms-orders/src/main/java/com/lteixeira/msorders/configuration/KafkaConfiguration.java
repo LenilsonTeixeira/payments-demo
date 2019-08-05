@@ -1,53 +1,37 @@
 package com.lteixeira.msorders.configuration;
 
-import com.lteixeira.msorders.model.Message;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
-import reactor.kafka.receiver.ReceiverOptions;
+import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
+@EnableKafka
 @Configuration
 public class KafkaConfiguration {
-
-    @Value("${kafka.bootstrapServers:#{null}}")
-    private String bootstrapServers;
-
-    @Value("${kafka.clientId:#{null}}")
-    private String clientId;
-
-    @Value("${kafka.groupId:#{null}}")
-    private String groupId;
-
-    @Value("${kafka.topicPattern:#{null}}")
-    private String topicPattern;
+    @Bean
+    public ConsumerFactory<String, String> consumerFactory() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "kafka-cluster");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1000);
+        return new DefaultKafkaConsumerFactory<>(props);
+    }
 
     @Bean
-    public ReceiverOptions<String, Message> receiverOptions() {
-
-        Map<String, Object> configuration = new HashMap<>();
-        configuration.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configuration.put(ConsumerConfig.CLIENT_ID_CONFIG, clientId);
-        configuration.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-        configuration.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        configuration.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        configuration.put(JsonDeserializer.VALUE_DEFAULT_TYPE, Message.class);
-        configuration.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
-        configuration.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 1000);
-        configuration.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, 1000);
-        configuration.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        configuration.put(ConsumerConfig.METADATA_MAX_AGE_CONFIG, 1000);
-
-        ReceiverOptions<String, Message> receiverOptions = ReceiverOptions.create(Collections.unmodifiableMap(configuration));
-        receiverOptions.subscription(Pattern.compile(topicPattern));
-        return receiverOptions.toImmutable();
+    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory());
+        return factory;
     }
 }
 

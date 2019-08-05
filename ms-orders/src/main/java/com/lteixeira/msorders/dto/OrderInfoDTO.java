@@ -1,6 +1,5 @@
 package com.lteixeira.msorders.dto;
 
-import com.lteixeira.msorders.enumeration.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,20 +12,15 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderInfoDTO implements Serializable {
-
-    private String customerId;
-
+    private String id;
+    private String purchaseOrderId;
+    private String customerSsn;
     private String customerName;
-
-    private String customerSSn;
-
     private String customerCredit;
-
-    private String productCode;
-
     private String productName;
-
     private String productPrice;
-
-    private OrderStatus status;
+    private String addressStreet;
+    private String addressZip;
+    private String purchaseOrderStatus;
+    private String action;
 }

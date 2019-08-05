@@ -79,6 +79,34 @@ services:
      depends_on:
        - postgresql
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+    - 3000:3000
+    volumes:
+    - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - ms-network
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+    - 9090:9090
+    volumes:
+    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    - prometheus_data:/prometheus
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - ms-network
+
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -90,6 +118,11 @@ services:
       - postgresql
     networks:
       - ms-network
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
 networks: 
     ms-network:
         driver: bridge

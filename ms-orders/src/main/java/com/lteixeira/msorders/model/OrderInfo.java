@@ -16,24 +16,26 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Document
 public class OrderInfo implements Serializable {
-
     @Id
     private String id;
 
-    private String customerId;
+    private String purchaseOrderId;
+
+    private String customerSsn;
 
     private String customerName;
 
-    private String customerSSn;
-
     private String customerCredit;
-
-    private String productCode;
 
     private String productName;
 
     private String productPrice;
 
-    private OrderStatus status;
+    private String addressStreet;
 
+    private String addressZip;
+
+    private String purchaseOrderStatus;
+
+    private String action;
 }

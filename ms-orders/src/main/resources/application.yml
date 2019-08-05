@@ -2,6 +2,8 @@
 #Server
 server:
   port: 8080
+  servlet:
+    context-path: /ms-orders/v1
 
 # Database
 spring:
@@ -11,8 +13,9 @@ spring:
       port: ${SPRING_DATA_MS_ORDERS_PORT:27017}
       host: ${SPRING_DATA_MS_ORDERS_HOST:mongodb}
 
-kafka:
-  clientId: ms-order
-  groupId: ms-order
-  topicPattern: .*
-  bootstrapServers: kafka:9092
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+

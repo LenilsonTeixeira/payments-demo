@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "375164a1-01a8-436c-8d9d-9a77e2fbea65",
+		"name": "Payments-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api-payments",
+			"item": [
+				{
+					"name": "http://localhost:8082/api-payments/v1/transactions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customer\":{\n\t\"name\":\"Lenilson Teixeira\",\n\t\"ssn\":\"07032245650\",\n\t\"birthDate\":\"1991-04-26\",\n\t\"credit\":3858.56\n\t},\n\t\"address\":{\n\t\t\"street\":\"Rua Baru  227\",\n\t\t\"city\":\"Ituiutaba\",\n\t\t\"state\":\"MG\",\n\t\t\"zip\":\"38307086\"\n\t},\n\t\"product\":{\n\t\t\"name\":\"Notebook Dell\",\n\t\t\"price\":2067.99\n\t}\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8082/api-payments/v1/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api-payments",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8082/api-payments/v1/transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8082/api-payments/v1/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api-payments",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8082/api-payments/v1/transactions/1",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8082/api-payments/v1/transactions/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api-payments",
+								"v1",
+								"transactions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8082/api-payments/v1/transactions/1",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":1,\n\t\"customer\":{\n\t\"name\":\"Lenilson Teixeira Salvino\",\n\t\"ssn\":\"07032245650\",\n\t\"birthDate\":\"1991-04-26\",\n\t\"credit\":363858.56\n\t},\n\t\"address\":{\n\t\t\"street\":\"Rua Baru  227\",\n\t\t\"city\":\"Ituiutaba\",\n\t\t\"state\":\"MG\",\n\t\t\"zip\":\"38307086\"\n\t},\n\t\"product\":{\n\t\t\"name\":\"Notebook Dell\",\n\t\t\"price\":2067.99\n\t}\n\t\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8082/api-payments/v1/transactions/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api-payments",
+								"v1",
+								"transactions",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8082/api-payments/v1/transactions/1",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8082/api-payments/v1/transactions/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api-payments",
+								"v1",
+								"transactions",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ms-orders",
+			"item": [
+				{
+					"name": "http://localhost:8080/ms-orders/v1/orders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/ms-orders/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ms-orders",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
