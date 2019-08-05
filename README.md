@@ -1,4 +1,4 @@
-# payments-demo
+# Payments-demo
 
 ## Passo a passo para executar o projeto
 
