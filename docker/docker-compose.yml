@@ -9,7 +9,7 @@ services:
        - "3306:3306"    
      environment:
        MYSQL_ROOT_PASSWORD: manager
-       MYSQL_DATABASE: ms_orders
+       MYSQL_DATABASE: api_products
        MYSQL_USER: developer
        MYSQL_PASSWORD: developer
 
@@ -69,12 +69,12 @@ services:
        - "8081:8081"
        - "8001:8001"
      environment:
-       SPRING_DATA_MONGODB_API_PRODUCTS_DATABASE: api_products
-       SPRING_DATA_API_PRODUCTS_HOST: mongodb
-       SPRING_DATA_API_PRODUCTS_PORT: 27017 
+       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/api_products"
+       SPRING_DATASOURCE_USERNAME: developer
+       SPRING_DATASOURCE_PASSWORD: developer
        JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8001 -Xmx128m"
      depends_on:
-       - mongodb
+       - mysql
 
   ms-orders:
      networks:
@@ -85,13 +85,12 @@ services:
        - "8080:8080"
        - "8000:8000"
      environment:
-       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/ms_orders"
-       SPRING_DATASOURCE_USERNAME: developer
-       SPRING_DATASOURCE_PASSWORD: developer
+       SPRING_DATA_MONGODB_MS_ORDERS_DATABASE: ms_orders
+       SPRING_DATA_MS_ORDERS_HOST: mongodb
+       SPRING_DATA_MS_ORDERS_PORT: 27017 
        JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Xmx128m"
      depends_on:
-       - mysql
-     restart: always
+       - mongodb
 
   api-customers:
      networks:

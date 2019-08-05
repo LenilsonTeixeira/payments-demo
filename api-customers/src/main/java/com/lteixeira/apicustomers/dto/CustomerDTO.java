@@ -30,7 +30,4 @@ public class CustomerDTO implements Serializable {
 
     @NotNull(message = "Valor do crédito é obrigatório")
     private BigDecimal credit;
-
-    @NotNull(message = "Endereço é obrigatório")
-    private AddressDTO addressDTO;
 }

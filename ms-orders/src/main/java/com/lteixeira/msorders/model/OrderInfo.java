@@ -5,37 +5,35 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table
+@Document
 public class OrderInfo implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false)
-    private Long productCode;
+    private String customerId;
 
-    @Column(nullable = false)
+    private String customerName;
+
+    private String customerSSn;
+
+    private String customerCredit;
+
+    private String productCode;
+
     private String productName;
 
-    @Column(nullable = false)
-    private Long customerId;
+    private String productPrice;
 
-    @Column(nullable = false)
-    private BigDecimal amount;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
 }

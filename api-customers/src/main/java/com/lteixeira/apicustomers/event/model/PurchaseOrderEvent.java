@@ -11,9 +11,14 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerEvent implements Serializable {
-    private String customerId;
+public class PurchaseOrderEvent implements Serializable {
+
+    private String purchaseOrderId;
+    private String customerSsn;
     private String customerName;
-    private String customerSSn;
     private String customerCredit;
+    private String productName;
+    private String productPrice;
+    private String addressStreet;
+    private String addressZip;
 }

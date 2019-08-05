@@ -7,13 +7,13 @@ import java.util.Optional;
 
 public interface ProductService {
 
-    void save(ProductDTO productDTO);
+    ProductDTO save(ProductDTO productDTO);
 
     List<ProductDTO> findAll();
 
-    void update (String id, ProductDTO productDTO);
+    void update (Long id, ProductDTO productDTO);
 
-    void deleteById (String id);
+    void deleteById (Long id);
 
-    Optional<ProductDTO> findById(String id);
+    Optional<ProductDTO> findById(Long id);
 }

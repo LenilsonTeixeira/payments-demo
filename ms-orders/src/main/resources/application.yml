@@ -2,22 +2,17 @@
 #Server
 server:
   port: 8080
-  servlet:
-    context-path: /ms-orders/v1
 
 # Database
 spring:
-  jpa:
-    database: mysql
-    hibernate:
-      ddl-auto: update
-  datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/ms_orders}
-    username: ${SPRING_DATASOURCE_USERNAME:developer}
-    password: ${SPRING_DATASOURCE_PASSWORD:developer}
+  data:
+    mongodb:
+      database: ${SPRING_DATA_MONGODB_MS_ORDERS_DATABASE:ms_orders}
+      port: ${SPRING_DATA_MS_ORDERS_PORT:27017}
+      host: ${SPRING_DATA_MS_ORDERS_HOST:mongodb}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info, prometheus
+kafka:
+  clientId: ms-order
+  groupId: ms-order
+  topicPattern: .*
+  bootstrapServers: kafka:9092

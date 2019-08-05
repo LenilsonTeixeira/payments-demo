@@ -5,11 +5,14 @@ server:
 
 # Database
 spring:
-  data:
-    mongodb:
-      database: ${SPRING_DATA_MONGODB_API_PRODUCTS_DATABASE:api_products}
-      port: ${SPRING_DATA_API_PRODUCTS_PORT:27017}
-      host: ${SPRING_DATA_API_PRODUCTS_HOST:mongodb}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/api_products}
+    username: ${SPRING_DATASOURCE_USERNAME:developer}
+    password: ${SPRING_DATASOURCE_PASSWORD:developer}
 
 management:
   endpoints:

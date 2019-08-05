@@ -1,4 +1,4 @@
-CREATE TABLE t_customer
+CREATE TABLE t_purchase_order
 (
     id serial,
     txt_name varchar(300) NOT NULL,
@@ -9,5 +9,7 @@ CREATE TABLE t_customer
     txt_city varchar(30) NOT NULL,
     txt_state varchar(2) NOT NULL,
     txt_zip varchar(10) NOT NULL,
+    txt_product_name VARCHAR(50) NOT NULL,
+    num_product_price DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id)
 );

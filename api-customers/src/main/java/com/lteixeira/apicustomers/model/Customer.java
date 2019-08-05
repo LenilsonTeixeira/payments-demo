@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMin;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,13 +18,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "T_CUSTOMER")
+@Embeddable
 public class Customer implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
     @Column(name = "TXT_NAME", nullable = false)
     private String name;
@@ -36,8 +34,4 @@ public class Customer implements Serializable {
     @DecimalMin(value = "0.00")
     @Column(name = "NUM_CREDIT", nullable = false)
     private BigDecimal credit;
-
-    @Embedded
-    private Address address;
-
 }

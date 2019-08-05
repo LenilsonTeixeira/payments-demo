@@ -1,6 +1,6 @@
 package com.lteixeira.apicustomers.handler;
 
-import com.lteixeira.apicustomers.exception.CustomerException;
+import com.lteixeira.apicustomers.exception.PurchaseException;
 import com.lteixeira.apicustomers.exception.JsonParseException;
 import com.lteixeira.apicustomers.exception.NotFoundException;
 import com.lteixeira.apicustomers.model.ErrorDetail;
@@ -36,8 +36,8 @@ public class GlobalExceptionHandler {
                 .body(new ErrorDetail(500, e.getMessage(), Instant.now().toEpochMilli(), request.getRequestURI()));
     }
 
-    @ExceptionHandler(CustomerException.class)
-    public ResponseEntity<ErrorDetail> handleCustomerException(NotFoundException e, final HttpServletRequest request) {
+    @ExceptionHandler(PurchaseException.class)
+    public ResponseEntity<ErrorDetail> handlePurchaseException(PurchaseException e, final HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorDetail(500, e.getMessage(), Instant.now().toEpochMilli(), request.getRequestURI()));

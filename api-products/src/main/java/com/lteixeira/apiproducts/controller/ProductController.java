@@ -1,6 +1,7 @@
 package com.lteixeira.apiproducts.controller;
 
 import com.lteixeira.apiproducts.dto.ProductDTO;
+import com.lteixeira.apiproducts.model.Product;
 import com.lteixeira.apiproducts.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +26,10 @@ public class ProductController {
 
     @PostMapping
     ResponseEntity<ProductDTO> save(@Valid @RequestBody ProductDTO productDTO){
-        final String productId = UUID.randomUUID().toString();
 
-        productDTO.setId(productId);
+        final ProductDTO productDb = this.productService.save(productDTO);
 
-        this.productService.save(productDTO);
+        productDTO.setId(productDb.getId());
 
         final URI uri = UriComponentsBuilder
                 .fromPath("products/{productId}")
@@ -40,18 +40,18 @@ public class ProductController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable("id") String id) {
+    public ResponseEntity<ProductDTO> findById(@PathVariable("id") Long id) {
         return ResponseEntity.ok().body(this.productService.findById(id).get());
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("id") String id){
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id){
         this.productService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable("id") String id, @Valid @RequestBody ProductDTO productDTO ){
+    public ResponseEntity<Void> update(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productDTO ){
         this.productService.update(id, productDTO);
         return ResponseEntity.ok().build();
     }

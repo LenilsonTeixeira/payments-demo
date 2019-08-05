@@ -29,14 +29,16 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public void save(ProductDTO productDTO) {
+    public ProductDTO save(ProductDTO productDTO) {
         try {
 
             Product product = productMapper.convertToModel(productDTO);
 
-            this.productRepository.save(product);
+            final ProductDTO productDb = productMapper.convertToDTO(this.productRepository.save(product));
 
-            productPublisherService.accept(product, ProductPublishActionEnum.CREATE);
+            productPublisherService.accept(productMapper.convertToModel(productDb), ProductPublishActionEnum.CREATE);
+
+            return productDb;
 
         }catch (Exception e){
             throw new ProductException("Erro ao salvar produto");
@@ -51,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(String id, ProductDTO productDTO) {
+    public void update(Long id, ProductDTO productDTO) {
         this.findById(id);
 
         final Product product = productRepository.save(productMapper.convertToModel(productDTO));
@@ -60,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id) {
         Optional<ProductDTO> productDb = this.findById(id);
 
         productRepository.deleteById(id);
@@ -72,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<ProductDTO> findById(String id) {
+    public Optional<ProductDTO> findById(Long id) {
         Optional<Product> productDb = productRepository.findById(id);
         if(productDb.isPresent()){
             return productRepository.findById(id)
