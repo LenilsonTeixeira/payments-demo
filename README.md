@@ -1,8 +1,8 @@
 # Payments-demo
 
 ## Contextualização:
-API-Payments e responsável por processar ordens de compras. 
-Através de uma comparação entre o valor do crédito do cliente e do valor do produto o status da ordem de compra será "Aprovado" ou "Negado". Em conjunto cada transação é postada através de tópico do Kafka que em paralelo são consumidas através do <b>MS-Orders<b/>, onde o mesmo realiza o armazenamento das transações no MongoDB.
+O API-Payments e responsável por criar ordens de compras, com base na comparação entre o valor do crédito do cliente e do valor do produto uma ordem  pode assumir o <b>status</b> de "Aprovada" ou "Negada". Em paralelo cada transação processada é postada através de tópico do Kafka. 
+<b>O MS-Orders<b/> consome as mensagens do Kafka e realiza o armazenamento do histórico das transações no MongoDB.
 
 
 ## Passo a passo para executar o projeto
