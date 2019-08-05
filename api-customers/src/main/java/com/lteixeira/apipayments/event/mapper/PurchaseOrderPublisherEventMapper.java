@@ -17,6 +17,7 @@ public class PurchaseOrderPublisherEventMapper {
                 .productPrice(purchaseOrder.getProduct().getPrice().toString())
                 .addressStreet(purchaseOrder.getAddress().getStreet())
                 .addressZip(purchaseOrder.getAddress().getZip())
+                .purchaseOrderStatus(purchaseOrder.getOrderStatus().name())
                 .build();
     }
 }

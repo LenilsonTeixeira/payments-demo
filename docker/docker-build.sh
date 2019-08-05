@@ -6,9 +6,5 @@ cd $PROJECTS_PATH/docker
 printf "\n> Building image: MS-Orders \n"
 mvn -f ../ms-orders/pom.xml package dockerfile:build -DskipTests
 
-printf "\n> Building image: API-Products \n"
-mvn -f ../api-products/pom.xml package dockerfile:build -DskipTests
-
-
-printf "\n> Building image: API-Customers \n"
-mvn -f ../api-customers/pom.xml package dockerfile:build -DskipTests
+printf "\n> Building image: API-Payments \n"
+mvn -f ../api-payments/pom.xml package dockerfile:build -DskipTests

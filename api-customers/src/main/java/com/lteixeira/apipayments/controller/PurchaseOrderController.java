@@ -36,6 +36,7 @@ public class PurchaseOrderController {
         final PurchaseOrderDTO purchaseOrderDb = this.purchaseOrderService.save(purchaseOrderDTO);
 
         purchaseOrderDTO.setId(purchaseOrderDb.getId());
+        purchaseOrderDTO.setOrderStatus(purchaseOrderDb.getOrderStatus());
 
         final URI uri = UriComponentsBuilder
                 .fromPath("purchases/{purchaseId}")

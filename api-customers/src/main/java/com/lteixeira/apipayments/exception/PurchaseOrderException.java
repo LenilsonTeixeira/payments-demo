@@ -1,10 +1,10 @@
 package com.lteixeira.apicustomers.exception;
 
-public class PurchaseException extends RuntimeException {
+public class PurchaseOrderException extends RuntimeException {
 
     static final long serialVersionUID = 1L;
 
-    public PurchaseException(String message){
+    public PurchaseOrderException(String message){
         super(message);
     }
 }

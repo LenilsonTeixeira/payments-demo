@@ -1,5 +1,6 @@
 package com.lteixeira.apicustomers.dto;
 
+import com.lteixeira.apicustomers.enumeration.PurchaseOrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +25,6 @@ public class PurchaseOrderDTO implements Serializable {
 
     @NotNull(message = "Produto é obrigatório")
     private ProductDTO product;
+
+    private PurchaseOrderStatus orderStatus;
 }

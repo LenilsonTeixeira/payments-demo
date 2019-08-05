@@ -4,7 +4,7 @@ import com.lteixeira.apicustomers.dto.PurchaseOrderDTO;
 import com.lteixeira.apicustomers.event.enumeration.PurchaseOrderPublishActionEnum;
 import com.lteixeira.apicustomers.event.service.PurchaseOrderPublisherService;
 import com.lteixeira.apicustomers.exception.NotFoundException;
-import com.lteixeira.apicustomers.exception.PurchaseException;
+import com.lteixeira.apicustomers.exception.PurchaseOrderException;
 import com.lteixeira.apicustomers.mapper.PurchaseOrderMapper;
 import com.lteixeira.apicustomers.model.PurchaseOrder;
 import com.lteixeira.apicustomers.repository.PurchaseOrderRepository;
@@ -40,7 +40,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
             return purchaseOrderDb;
 
         }catch (Exception e){
-            throw new PurchaseException("Erro ao salvar ordem de compra");
+            throw new PurchaseOrderException("Erro ao salvar ordem de compra");
         }
     }
 

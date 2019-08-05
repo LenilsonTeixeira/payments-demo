@@ -17,8 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class CustomerDTO implements Serializable {
 
-    private Integer id;
-
     @NotBlank(message = "Nome é obrigatório")
     private String name;
 

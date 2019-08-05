@@ -1,18 +1,5 @@
 version: '3'
 services:
-  mysql:
-     networks:
-       - ms-network
-     image: mysql:5.7
-     container_name: mysql
-     ports: 
-       - "3306:3306"    
-     environment:
-       MYSQL_ROOT_PASSWORD: manager
-       MYSQL_DATABASE: api_products
-       MYSQL_USER: developer
-       MYSQL_PASSWORD: developer
-
   zookeeper:
      container_name: zookeeper
      networks:
@@ -53,28 +40,12 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-      POSTGRES_DB: api_customers
+      POSTGRES_DB: api_payments
     ports:
       - "5432:5432"
     networks:
       - ms-network
     restart: unless-stopped
-
-  api-products:
-     networks:
-       - ms-network
-     image: api-products
-     container_name: api-products
-     ports:
-       - "8081:8081"
-       - "8001:8001"
-     environment:
-       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql/api_products"
-       SPRING_DATASOURCE_USERNAME: developer
-       SPRING_DATASOURCE_PASSWORD: developer
-       JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8001 -Xmx128m"
-     depends_on:
-       - mysql
 
   ms-orders:
      networks:
@@ -92,16 +63,16 @@ services:
      depends_on:
        - mongodb
 
-  api-customers:
+  api-payments:
      networks:
        - ms-network
-     image: api-customers
-     container_name: api-customers
+     image: api-payments
+     container_name: api-payments
      ports:
        - "8082:8082"
        - "8002:8002"
      environment:
-       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/api_customers"
+       SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/api_payments"
        SPRING_DATASOURCE_USERNAME: admin
        SPRING_DATASOURCE_PASSWORD: admin
        JAVA_OPTS: "-Djava.security.egd=file:/dev/./urandom -XX:+UseParallelGC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8002 -Xmx128m"

@@ -20,9 +20,9 @@ public class ProductDTO implements Serializable {
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(max = 300, message = "O nome do produto deve ter menos que 300 caracteres")
-    private String productName;
+    private String name;
 
     @NotNull(message = "Preço é obrigatório")
     @DecimalMin(value = "0.00", message = "O valor do produto deve ser maior que R$0,00")
-    private BigDecimal productPrice;
+    private BigDecimal price;
 }

@@ -12,7 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseOrderEvent implements Serializable {
-
     private String purchaseOrderId;
     private String customerSsn;
     private String customerName;
@@ -21,4 +20,5 @@ public class PurchaseOrderEvent implements Serializable {
     private String productPrice;
     private String addressStreet;
     private String addressZip;
+    private String purchaseOrderStatus;
 }
