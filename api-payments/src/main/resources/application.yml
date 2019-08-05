@@ -1,0 +1,20 @@
+#Server
+server:
+  port: 8082
+  servlet:
+    context-path: /api-payments/v1
+
+# Database
+spring:
+  jpa:
+    database: postgresql
+    properties:
+      hibernate:
+        ddl-auto: update
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/api_payments}
+    username: ${SPRING_DATASOURCE_USERNAME:admin}
+    password: ${SPRING_DATASOURCE_PASSWORD:admin}
